@@ -33,6 +33,9 @@ namespace FitnessForLife
                      "~/Scripts/lib/moment.min.js",
                      "~/Scripts/fullcalendar.js",
                      "~/Scripts/calendar.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/mapbox").Include(
+                     "~/Scripts/location.js"));
         }
     }
 }
