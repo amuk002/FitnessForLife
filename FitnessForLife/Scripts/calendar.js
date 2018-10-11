@@ -1,23 +1,29 @@
 ﻿var appointments = [];
 $(".appointments").each(function () {
-    var title = $(".title", this).text().trim();
-    var start = $(".start", this).text().trim();
+    var username = $(".username", this).text().trim();
+    var datetime = $(".datetime", this).text().trim();
+    var branch = $(".branch", this).text().trim();
+    var consultant = $(".consultant", this).text().trim();
     var appointment = {
-        "title": title,
-        "start": start
+        "username": username,
+        "datetime": datetime,
+        "branch": branch,
+        "consultant": consultant
     };
     appointments.push(appointment);
 });
 
-$("#calendar").fullCalendar({
-    locale: 'au',
-    events: appointments,
+$(document).ready(function () {
+    $("#calendar").fullCalendar({
+        locale: 'au',
+        events: appointments,
 
-    dayClick: function (date, allDay, jsEvent, view) {
-        var d = new Date(date);
-        var m = moment(d).format("YYYY-MM-DD");
-        m = encodeURIComponent(m);
-        var uri = "/Events/Create?date=" + m;
-        $(location).attr('href', uri);
-    }
-});
+        dayClick: function (date, allDay, jsEvent, view) {
+            var d = new Date(date);
+            var m = moment(d).format("YYYY-MM-DD");
+            m = encodeURIComponent(m);
+            var uri = "/Appointments/Create?date=" + m;
+            $(location).attr('href', uri);
+        }
+    });
+});

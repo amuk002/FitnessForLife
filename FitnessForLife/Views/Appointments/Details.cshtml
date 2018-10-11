@@ -1,0 +1,51 @@
+﻿@model FitnessForLife.Models.Appointment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Appointment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch1.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch1.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateAndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateAndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Consultant)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Consultant)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

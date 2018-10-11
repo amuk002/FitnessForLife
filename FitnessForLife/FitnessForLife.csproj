@@ -209,21 +209,26 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Branch.cs" />
+    <Compile Include="Models\Consultant.cs" />
+    <Compile Include="Models\FitnessForLifeModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Appointment.mdf" />
-    <Content Include="App_Data\Appointment_log.ldf">
-      <DependentUpon>Appointment.mdf</DependentUpon>
+    <Content Include="App_Data\Fitness.mdf" />
+    <Content Include="App_Data\Fitness_log.ldf">
+      <DependentUpon>Fitness.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-mytheme.css" />
     <Content Include="Content\bootstrap.css" />
@@ -389,6 +394,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Appointments\Create.cshtml" />
+    <Content Include="Views\Appointments\Delete.cshtml" />
+    <Content Include="Views\Appointments\Details.cshtml" />
+    <Content Include="Views\Appointments\Edit.cshtml" />
+    <Content Include="Views\Appointments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />
