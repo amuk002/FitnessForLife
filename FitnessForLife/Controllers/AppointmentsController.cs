@@ -64,7 +64,8 @@ namespace FitnessForLife.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
+            
+            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);           
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
             return View(appointment);
         }
