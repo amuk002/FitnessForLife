@@ -10,6 +10,7 @@ using FitnessForLife.Models;
 
 namespace FitnessForLife.Controllers
 {
+    [Authorize]
     public class AppointmentsController : Controller
     {
         private FitnessForLifeModel db = new FitnessForLifeModel();
@@ -17,7 +18,7 @@ namespace FitnessForLife.Controllers
         // GET: Appointments
         public ActionResult Index()
         {
-            var appointments = db.Appointments.Include(a => a.Branch1);
+            var appointments = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1);
             return View(appointments.ToList());
         }
 
@@ -40,12 +41,13 @@ namespace FitnessForLife.Controllers
         public ActionResult Create(String date)
         {
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Name");
+            ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name");
             if (null == date)
                 return RedirectToAction("Index");
             Appointment a = new Appointment();
             DateTime convertedDate = DateTime.Parse(date);
             a.DateAndTime = convertedDate;
-            return View(a);
+            return View(a);
         }
 
         // POST: Appointments/Create
@@ -63,6 +65,7 @@ namespace FitnessForLife.Controllers
             }
 
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
+            ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
             return View(appointment);
         }
 
@@ -79,6 +82,7 @@ namespace FitnessForLife.Controllers
                 return HttpNotFound();
             }
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
+            ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
             return View(appointment);
         }
 
@@ -96,6 +100,7 @@ namespace FitnessForLife.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
+            ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
             return View(appointment);
         }
 

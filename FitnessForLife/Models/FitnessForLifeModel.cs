@@ -43,6 +43,11 @@ namespace FitnessForLife.Models
                 .HasMany(e => e.Consultants)
                 .WithOptional(e => e.Branch1)
                 .HasForeignKey(e => e.Branch);
+
+            modelBuilder.Entity<Consultant>()
+                .HasMany(e => e.Appointments)
+                .WithOptional(e => e.Consultant1)
+                .HasForeignKey(e => e.Consultant);
         }
     }
 }

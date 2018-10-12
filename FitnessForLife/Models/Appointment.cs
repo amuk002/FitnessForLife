@@ -6,7 +6,6 @@ namespace FitnessForLife.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Appointment")]
     public partial class Appointment
     {
         public int Id { get; set; }
@@ -21,5 +20,7 @@ namespace FitnessForLife.Models
         public int? Consultant { get; set; }
 
         public virtual Branch Branch1 { get; set; }
+
+        public virtual Consultant Consultant1 { get; set; }
     }
 }

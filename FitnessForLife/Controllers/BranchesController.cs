@@ -10,6 +10,7 @@ using FitnessForLife.Models;
 
 namespace FitnessForLife.Controllers
 {
+    [Authorize]
     public class BranchesController : Controller
     {
         private FitnessForLifeModel db = new FitnessForLifeModel();

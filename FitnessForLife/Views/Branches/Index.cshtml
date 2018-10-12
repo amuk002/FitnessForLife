@@ -6,8 +6,10 @@
 }
 
 <h2 class="start">Our Branches</h2>
+
 <div id="map" style="height:300px"></div>
 <br />
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -30,14 +32,14 @@
 
     @foreach (var item in Model)
     {
-        <tr class="coordinates">
+        <tr  class="coordinates">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td class="description">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td class="latitide">
+            <td class="latitude">
                 @Html.DisplayFor(modelItem => item.Latitude)
             </td>
             <td class="longitude">
