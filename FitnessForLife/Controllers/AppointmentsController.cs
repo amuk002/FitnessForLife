@@ -45,7 +45,8 @@ namespace FitnessForLife.Controllers
             if (null == date)
                 return RedirectToAction("Index");
             Appointment a = new Appointment();
-            DateTime convertedDate = DateTime.Parse(date);
+            string newFormat = DateTime.ParseExact(date, "yyyy'-'MM'-'dd", null).ToString("MM'/'dd'/'yyyy");
+            DateTime convertedDate = Convert.ToDateTime(newFormat);
             a.Date_And_Time = convertedDate;
             return View(a);
         }
