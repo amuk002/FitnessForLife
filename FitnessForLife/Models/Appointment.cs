@@ -10,10 +10,10 @@ namespace FitnessForLife.Models
     {
         public int Id { get; set; }
 
-        [StringLength(256)]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
-        public DateTime? DateAndTime { get; set; }
+        [Column("Date And Time")]
+        public DateTime? Date_And_Time { get; set; }
 
         public int? Branch { get; set; }
 

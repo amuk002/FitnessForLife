@@ -46,8 +46,8 @@ namespace FitnessForLife.Controllers
                 return RedirectToAction("Index");
             Appointment a = new Appointment();
             DateTime convertedDate = DateTime.Parse(date);
-            a.DateAndTime = convertedDate;
-            return View(a);
+            a.Date_And_Time = convertedDate;
+            return View(a);
         }
 
         // POST: Appointments/Create
@@ -55,7 +55,7 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserName,DateAndTime,Branch,Consultant")] Appointment appointment)
+        public ActionResult Create([Bind(Include = "Id,Username,Date_And_Time,Branch,Consultant")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
@@ -64,8 +64,7 @@ namespace FitnessForLife.Controllers
                 return RedirectToAction("Index");
             }
 
-            
-            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);           
+            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
             return View(appointment);
         }
@@ -92,7 +91,7 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserName,DateAndTime,Branch,Consultant")] Appointment appointment)
+        public ActionResult Edit([Bind(Include = "Id,Username,Date_And_Time,Branch,Consultant")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {

@@ -5,11 +5,10 @@ $(".appointments").each(function () {
     var branch = $(".branch", this).text().trim();
     var consultant = $(".consultant", this).text().trim();
     var appointment = {
-        "username": username,
         "datetime": datetime,
-        "branch": branch,
-        "consultant": consultant
-
+        "consultant": consultant,
+        "username": username,
+        "branch": branch
     };
     appointments.push(appointment);
 });
