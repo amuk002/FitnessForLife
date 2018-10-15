@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FitnessForLife.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FitnessForLife.Controllers
 {
@@ -21,7 +22,7 @@ namespace FitnessForLife.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
@@ -50,6 +51,7 @@ namespace FitnessForLife.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Id = User.Identity.GetUserId();
                 db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -59,7 +61,7 @@ namespace FitnessForLife.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -90,7 +92,7 @@ namespace FitnessForLife.Controllers
         }
 
         // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
             if (id == null)
             {
@@ -107,7 +109,7 @@ namespace FitnessForLife.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             User user = db.Users.Find(id);
             db.Users.Remove(user);

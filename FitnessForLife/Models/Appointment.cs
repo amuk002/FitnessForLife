@@ -11,7 +11,8 @@ namespace FitnessForLife.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        public int? UserId { get; set; }
+        [StringLength(128)]
+        public string UserId { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? Date { get; set; }
