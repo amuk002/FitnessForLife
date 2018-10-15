@@ -14,7 +14,6 @@ namespace FitnessForLife.Models
             Appointments = new HashSet<Appointment>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Column("Full Name")]

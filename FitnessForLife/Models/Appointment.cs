@@ -8,7 +8,6 @@ namespace FitnessForLife.Models
 
     public partial class Appointment
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [StringLength(128)]
