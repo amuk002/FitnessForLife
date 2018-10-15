@@ -10,18 +10,32 @@ var locations = [];
 // The first step is obtain all the latitude and longitude from the HTML
 // The below is a simple jQuery selector
 $(".coordinates").each(function () {
-    var longitude = $(".longitude", this).text().trim();
-    var latitude = $(".latitude", this).text().trim();
-    var description = $(".description", this).text().trim();
+    var hno = $(".hno", this).text().trim();
+    var street = $(".street", this).text().trim();
+    var suburb = $(".suburb", this).text().trim();
+   // var description = $(".description", this).text().trim();
     // Create a point data structure to hold the values.
     var point = {
-        "latitude": latitude,
-        "longitude": longitude,
-        "description": description
+        "hno": hno,
+        "street": street,
+        "suburb": suburb
     };
     // Push them all into an array.
     locations.push(point);
 });
+
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const geocodingClient = mbxGeocoding({ accessToken: TOKEN });
+
+geocodingClient
+    .forwardGeocode({
+        query: 'Paris, France',
+        countries: ['fr']
+    })
+    .send()
+    .then(response => {
+        const match = response.body;
+    });
 var data = [];
 for (i = 0; i < locations.length; i++) {
     var feature = {
@@ -44,6 +58,9 @@ var map = new mapboxgl.Map({
     zoom: 11,
     center: [locations[0].longitude, locations[0].latitude]
 });
+
+
+
 map.on('load', function () {
     // Add a layer showing the places.
     map.addLayer({

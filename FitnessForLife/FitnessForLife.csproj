@@ -209,18 +209,21 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AppointmentsController.cs" />
-    <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809240852485_InitialCreate.cs" />
+    <Compile Include="Migrations\201809240852485_InitialCreate.Designer.cs">
+      <DependentUpon>201809240852485_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810150040522_SeedUsers.cs" />
+    <Compile Include="Migrations\201810150040522_SeedUsers.Designer.cs">
+      <DependentUpon>201810150040522_SeedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\Branch.cs" />
-    <Compile Include="Models\Consultant.cs" />
-    <Compile Include="Models\FitnessForLifeModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -373,9 +376,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -396,16 +396,9 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Branches\Create.cshtml" />
-    <Content Include="Views\Branches\Delete.cshtml" />
-    <Content Include="Views\Branches\Details.cshtml" />
-    <Content Include="Views\Branches\Edit.cshtml" />
-    <Content Include="Views\Branches\Index.cshtml" />
-    <Content Include="Views\Appointments\Create.cshtml" />
-    <Content Include="Views\Appointments\Delete.cshtml" />
-    <Content Include="Views\Appointments\Details.cshtml" />
-    <Content Include="Views\Appointments\Edit.cshtml" />
-    <Content Include="Views\Appointments\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />
@@ -421,6 +414,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809240852485_InitialCreate.resx">
+      <DependentUpon>201809240852485_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810150040522_SeedUsers.resx">
+      <DependentUpon>201810150040522_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
