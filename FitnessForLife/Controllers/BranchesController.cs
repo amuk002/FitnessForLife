@@ -48,7 +48,7 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Address")] Branch branch)
+        public ActionResult Create([Bind(Include = "Id,Description,Address")] Branch branch)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +80,7 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Address")] Branch branch)
+        public ActionResult Edit([Bind(Include = "Id,Description,Address")] Branch branch)
         {
             if (ModelState.IsValid)
             {

@@ -5,22 +5,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="start">Appointment Details</h2>
 
 <div>
     <h4>Appointment</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Branch1.Name)
+            <!--@Html.DisplayNameFor(model => model.Branch1.Description)-->
+            Branch
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Branch1.Name)
+            @Html.DisplayFor(model => model.Branch1.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Consultant1.Full_Name)
+            <!--@Html.DisplayNameFor(model => model.Consultant1.Full_Name)-->
+            Consultant
         </dt>
 
         <dd>
@@ -28,11 +30,13 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.First_Name)
+            <!--@Html.DisplayNameFor(model => model.User.First_Name)-->
+            Customer
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.User.First_Name)
+            @Html.DisplayFor(model => model.User.Last_Name)
         </dd>
 
         <dt>
@@ -51,9 +55,9 @@
             @Html.DisplayFor(model => model.Time)
         </dd>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>

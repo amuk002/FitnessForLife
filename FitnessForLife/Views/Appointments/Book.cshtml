@@ -13,15 +13,15 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Branch1.Name)
+            Branch
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Branch1.Name)
+            @Html.DisplayFor(model => model.Branch1.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Consultant1.Full_Name)
+            Consultant
         </dt>
 
         <dd>
@@ -29,11 +29,12 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.First_Name)
+            Your Name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.User.First_Name)
+            @Html.DisplayFor(model => model.User.Last_Name)
         </dd>
 
         <dt>

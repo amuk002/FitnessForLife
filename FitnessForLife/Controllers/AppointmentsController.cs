@@ -47,9 +47,8 @@ namespace FitnessForLife.Controllers
         [Authorize(Roles = "FitnessManager")]
         public ActionResult Create()
         {
-            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name");
+            ViewBag.Branch = new SelectList(db.Branches, "Id", "Description");
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "First_Name");
             return View();
         }
 
@@ -69,9 +68,8 @@ namespace FitnessForLife.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
+            ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "First_Name", appointment.UserId);
             return View(appointment);
         }
 
@@ -83,6 +81,7 @@ namespace FitnessForLife.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Appointment appointment = db.Appointments.Find(id);
+            appointment.UserId = User.Identity.GetUserId();
             if (appointment == null)
             {
                 return HttpNotFound();
@@ -99,7 +98,7 @@ namespace FitnessForLife.Controllers
             appointment.UserId = User.Identity.GetUserId();
             db.Entry(appointment).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Appointments/Edit/5
@@ -115,9 +114,8 @@ namespace FitnessForLife.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
+            ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "First_Name", appointment.UserId);
             return View(appointment);
         }
     
@@ -136,9 +134,8 @@ namespace FitnessForLife.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Branch = new SelectList(db.Branches, "Id", "Name", appointment.Branch);
+            ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "First_Name", appointment.UserId);
             return View(appointment);
         }
 

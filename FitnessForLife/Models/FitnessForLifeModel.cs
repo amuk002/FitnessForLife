@@ -20,10 +20,6 @@ namespace FitnessForLife.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Branch>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Branch>()
                 .Property(e => e.Description)
                 .IsUnicode(false);
 
