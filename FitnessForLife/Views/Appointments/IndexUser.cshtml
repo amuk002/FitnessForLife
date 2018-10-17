@@ -5,24 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="start">Appointments</h2>
+<h2 class="start">Available Appointments</h2>
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Branch1.Name)
+            Branch
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Consultant1.Full_Name)
+            Consultant
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.First_Name)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Time)
+            Time
         </th>
         <th></th>
     </tr>
@@ -34,9 +31,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.First_Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
