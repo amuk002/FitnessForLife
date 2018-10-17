@@ -1,11 +1,11 @@
 ﻿@model FitnessForLife.Models.Appointment
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Book";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="start">Delete</h2>
+<h2 class="start">Book</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -58,7 +58,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Book" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

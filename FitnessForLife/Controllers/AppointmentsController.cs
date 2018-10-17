@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FitnessForLife.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FitnessForLife.Controllers
 {
+    [Authorize]
     public class AppointmentsController : Controller
     {
         private FitnessForLifeModel db = new FitnessForLifeModel();
@@ -18,7 +20,9 @@ namespace FitnessForLife.Controllers
         public ActionResult Index()
         {
             var appointments = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
-            return View(appointments.ToList());
+            if(User.IsInRole("FitnessManager"))
+                return View("IndexAdmin", appointments.ToList());
+            return View("IndexUser", appointments.ToList());
         }
 
         // GET: Appointments/Details/5
@@ -40,7 +44,6 @@ namespace FitnessForLife.Controllers
         public ActionResult Create()
         {
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Name");
-            string branchValue = Request.Form["Branch"].ToString();
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name");
             ViewBag.UserId = new SelectList(db.Users, "Id", "First_Name");
             return View();
@@ -67,6 +70,33 @@ namespace FitnessForLife.Controllers
             return View(appointment);
         }
 
+        // GET: Appointments/Book/5
+        public ActionResult Book(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Appointment appointment = db.Appointments.Find(id);
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(appointment);
+        }
+
+        // POST: Appointments/Book/5
+        [HttpPost, ActionName("Book")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BookConfirmed(int id)
+        {
+            Appointment appointment = db.Appointments.Find(id);
+            appointment.UserId = User.Identity.GetUserId();
+            db.Entry(appointment).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         // GET: Appointments/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -84,6 +114,7 @@ namespace FitnessForLife.Controllers
             ViewBag.UserId = new SelectList(db.Users, "Id", "First_Name", appointment.UserId);
             return View(appointment);
         }
+    
 
         // POST: Appointments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
