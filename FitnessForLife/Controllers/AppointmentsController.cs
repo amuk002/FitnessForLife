@@ -28,6 +28,7 @@ namespace FitnessForLife.Controllers
         }
 
         // GET: Appointments/Details/5
+        [Authorize(Roles = "FitnessManager")]
         public ActionResult Details(int? id)
         {
             if (id == null)

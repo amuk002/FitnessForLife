@@ -6,104 +6,47 @@
 * @author Aditi Mukhopadhyay <amuk0002@student.monash.edu>
 */
 const TOKEN = 'pk.eyJ1IjoiYWRpcm9ja3M5NSIsImEiOiJjamdsbnk0eDYxcXRsMndwcXd6cXN3cnpkIn0.LlXsl3N7xpZgew8vVx6rnw';
+
 var locations = [];
 // The first step is obtain all the latitude and longitude from the HTML
 // The below is a simple jQuery selector
-$(".coordinates").each(function () {
-    var hno = $(".hno", this).text().trim();
-    var street = $(".street", this).text().trim();
-    var suburb = $(".suburb", this).text().trim();
-   // var description = $(".description", this).text().trim();
+$(".location").each(function () {
+    var address = $(".address", this).text().trim();
+    var description = $(".description", this).text().trim();
     // Create a point data structure to hold the values.
     var point = {
-        "hno": hno,
-        "street": street,
-        "suburb": suburb
+        "address": address,
+        "description": description
     };
     // Push them all into an array.
     locations.push(point);
 });
 
-const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const geocodingClient = mbxGeocoding({ accessToken: TOKEN });
-
-geocodingClient
-    .forwardGeocode({
-        query: 'Paris, France',
-        countries: ['fr']
-    })
-    .send()
-    .then(response => {
-        const match = response.body;
-    });
-var data = [];
-for (i = 0; i < locations.length; i++) {
-    var feature = {
-        "type": "Feature",
-        "properties": {
-            "description": locations[i].description,
-            "icon": "circle-15"
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [locations[i].longitude, locations[i].latitude]
-        }
-    };
-    data.push(feature)
-}
 mapboxgl.accessToken = TOKEN;
+var mapboxClient = mapboxSdk({ accessToken: mapboxgl.accessToken });
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v10',
-    zoom: 11,
-    center: [locations[0].longitude, locations[0].latitude]
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [145.04583700, -37.87682300],
+    zoom: 10
 });
 
 
 
-map.on('load', function () {
-    // Add a layer showing the places.
-    map.addLayer({
-        "id": "places",
-        "type": "symbol",
-        "source": {
-            "type": "geojson",
-            "data": {
-                "type": "FeatureCollection",
-                "features": data
-            }
-        },
-        "layout": {
-            "icon-image": "{icon}",
-            "icon-allow-overlap": true
+for (i = 0; i < locations.length; i++) {
+    mapboxClient.geocoding.forwardGeocode({
+        query: locations[i].address,
+        autocomplete: false,
+        limit: 1
+    })
+    .send()
+    .then(function (response) {
+        if (response && response.body && response.body.features && response.body.features.length) {
+            var feature = response.body.features[0];
+
+        new mapboxgl.Marker()
+                    .setLngLat(feature.center)
+                    .addTo(map);
         }
     });
-    map.addControl(new MapboxGeocoder({
-        accessToken: mapboxgl.accessToken
-    }));;
-    map.addControl(new mapboxgl.NavigationControl());
-    // When a click event occurs on a feature in the places layer, open a popup at the
-    // location of the feature, with description HTML from its properties.
-    map.on('click', 'places', function (e) {
-        var coordinates = e.features[0].geometry.coordinates.slice();
-        var description = e.features[0].properties.description;
-        // Ensure that if the map is zoomed out such that multiple
-        // copies of the feature are visible, the popup appears
-        // over the copy being pointed to.
-        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-        }
-        new mapboxgl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(description)
-            .addTo(map);
-    });
-    // Change the cursor to a pointer when the mouse is over the places layer.
-    map.on('mouseenter', 'places', function () {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'places', function () {
-        map.getCanvas().style.cursor = '';
-    });
-});
+}
