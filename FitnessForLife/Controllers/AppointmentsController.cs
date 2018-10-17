@@ -19,10 +19,12 @@ namespace FitnessForLife.Controllers
         // GET: Appointments
         public ActionResult Index()
         {
-            var appointments = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
-            if(User.IsInRole("FitnessManager"))
-                return View("IndexAdmin", appointments.ToList());
-            return View("IndexUser", appointments.ToList());
+            var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            var appointmentsUser = db.Appointments.Where(a => a.UserId == null).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            if (User.IsInRole("FitnessManager"))
+                return View("IndexAdmin", appointmentsAdmin.ToList());
+
+            return View("IndexUser", appointmentsUser.ToList());
         }
 
         // GET: Appointments/Details/5
@@ -41,6 +43,7 @@ namespace FitnessForLife.Controllers
         }
 
         // GET: Appointments/Create
+        [Authorize(Roles = "FitnessManager")]
         public ActionResult Create()
         {
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Name");
@@ -54,6 +57,7 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "FitnessManager")]
         public ActionResult Create([Bind(Include = "Id,UserId,Date,Time,Branch,Consultant")] Appointment appointment)
         {
             if (ModelState.IsValid)
@@ -98,6 +102,7 @@ namespace FitnessForLife.Controllers
         }
 
         // GET: Appointments/Edit/5
+        [Authorize(Roles = "FitnessManager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -121,6 +126,7 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "FitnessManager")]
         public ActionResult Edit([Bind(Include = "Id,UserId,Date,Time,Branch,Consultant")] Appointment appointment)
         {
             if (ModelState.IsValid)
@@ -136,6 +142,7 @@ namespace FitnessForLife.Controllers
         }
 
         // GET: Appointments/Delete/5
+        [Authorize(Roles = "FitnessManager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -153,6 +160,7 @@ namespace FitnessForLife.Controllers
         // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "FitnessManager")]
         public ActionResult DeleteConfirmed(int id)
         {
             Appointment appointment = db.Appointments.Find(id);
