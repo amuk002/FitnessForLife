@@ -14,7 +14,7 @@ namespace FitnessForLife.Models
         public string UserId { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Date { get; set; }
 
         [DataType(DataType.Time)]
