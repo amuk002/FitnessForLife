@@ -26,6 +26,8 @@ namespace FitnessForLife.Models
         public string Last_Name { get; set; }
 
         [Column("Date of birth", TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Date_of_birth { get; set; }
 
         public string Address { get; set; }

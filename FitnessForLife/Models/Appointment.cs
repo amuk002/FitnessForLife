@@ -14,8 +14,12 @@ namespace FitnessForLife.Models
         public string UserId { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Date { get; set; }
 
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public TimeSpan? Time { get; set; }
 
         public int? Branch { get; set; }

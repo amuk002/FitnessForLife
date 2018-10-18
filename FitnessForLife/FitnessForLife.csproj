@@ -428,6 +428,7 @@
     <Content Include="Views\Home\IndexUser.cshtml" />
     <Content Include="Views\Appointments\IndexUser.cshtml" />
     <Content Include="Views\Appointments\Cancel.cshtml" />
+    <Content Include="Views\Home\IndexAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />

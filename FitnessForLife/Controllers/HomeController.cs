@@ -12,6 +12,8 @@ namespace FitnessForLife.Controllers
         {
             if(User.Identity.IsAuthenticated && !User.IsInRole("FitnessManager"))
                 return View("IndexUser");
+            if (User.IsInRole("FitnessManager"))
+                return View("IndexAdmin");
             return View("Index");
         }
 
