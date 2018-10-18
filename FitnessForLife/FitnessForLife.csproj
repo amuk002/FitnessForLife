@@ -260,6 +260,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\gcal.js" />
@@ -417,7 +418,7 @@
     <Content Include="Views\Appointments\Details.cshtml" />
     <Content Include="Views\Appointments\Edit.cshtml" />
     <Content Include="Views\Appointments\IndexAdmin.cshtml" />
-    <Content Include="Views\Appointments\Manage.cshtml" />
+    <Content Include="Views\Appointments\ManageUser.cshtml" />
     <Content Include="Views\Appointments\Book.cshtml" />
     <Content Include="Views\Branches\Create.cshtml" />
     <Content Include="Views\Branches\Delete.cshtml" />
@@ -429,6 +430,7 @@
     <Content Include="Views\Appointments\IndexUser.cshtml" />
     <Content Include="Views\Appointments\Cancel.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
+    <Content Include="Views\Appointments\ManageAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />

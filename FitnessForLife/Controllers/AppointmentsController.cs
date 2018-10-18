@@ -45,11 +45,16 @@ namespace FitnessForLife.Controllers
 
         // GET: Appointments/Create
         [Authorize(Roles = "FitnessManager")]
-        public ActionResult Create()
+        public ActionResult Create(String date)
         {
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Description");
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name");
-            return View();
+            if (null == date)
+                return RedirectToAction("IndexAdmin");
+            Appointment a = new Appointment();
+            DateTime convertedDate = DateTime.Parse(date);
+            a.Date = convertedDate;
+            return View(a);
         }
 
         // POST: Appointments/Create
@@ -105,8 +110,11 @@ namespace FitnessForLife.Controllers
         public ActionResult Manage()
         {
             var uId = User.Identity.GetUserId();
-            var appointments = db.Appointments.Where(a => a.UserId == uId).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
-            return View(appointments.ToList());
+            var appointmentsUser = db.Appointments.Where(a => a.UserId == uId).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            if (User.IsInRole("FitnessManager"))
+                return View("ManageAdmin", appointmentsAdmin.ToList());
+            return View("ManageUser", appointmentsUser.ToList());
         }
 
         // GET: Appointments/Cancel/5

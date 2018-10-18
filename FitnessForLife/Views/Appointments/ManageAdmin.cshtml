@@ -10,8 +10,6 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<div id="calendar"></div>
-<div style="display: none">
     <table class="table">
         <tr>
             <th>
@@ -34,21 +32,21 @@
 
         @foreach (var item in Model)
         {
-            <tr class="appointments">
+            <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Branch1.Description)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
                 </td>
-                <td class="title">
+                <td>
                     @Html.DisplayFor(modelItem => item.User.First_Name)
                     @Html.DisplayFor(modelItem => item.User.Last_Name)
                 </td>
-                <td class="start">
+                <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
-                <td class="start">
+                <td>
                     @Html.DisplayFor(modelItem => item.Time)
                 </td>
                 <td>
@@ -59,8 +57,3 @@
             </tr>
         }
     </table>
-</div>
-@section Scripts {
-    @Scripts.Render("~/bundles/fullcalendar")
-}
-
