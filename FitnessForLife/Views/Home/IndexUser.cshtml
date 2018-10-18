@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+
+    <img src="~/Content/fitnessforlife.jpg" class="img-fluid start" alt="Responsive image" />
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3" style="max-width: 20rem;">
+                <h4 class="card-header bg-secondary">@Html.ActionLink("Book an Appointment", "Index", "Appointments", routeValues: null, htmlAttributes: new { @class = "card-title text-white" })</h4>
+                <div class="card-body">
+                    <p class="card-text">Have a chat with our trainers and nutritionists. Get an estimate of your ideal weight and select from a wide-range of fiteness programs. Our experts will help you achieve your goals.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3" style="max-width: 20rem;">
+                <h4 class="card-header bg-secondary">@Html.ActionLink("Our Branches", "Index", "Branches", routeValues: null, htmlAttributes: new { @class = "card-title text-white" })</h4>
+                <div class="card-body">
+                    <p class="card-text">We have 50+ centers in different cities all over Australia. Take a look at our locations and visit one near you.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3" style="max-width: 20rem;">
+                <h4 class="card-header bg-secondary">@Html.ActionLink("Your Appointments", "Manage", "Appointments", routeValues: null, htmlAttributes: new { @class = "card-title text-white" })</h4>
+                <div class="card-body">
+                    <p class="card-text">Manage your appointments here.</p>
+                </div>
+            </div>
+        </div>
+    </div>

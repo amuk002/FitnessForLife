@@ -98,7 +98,43 @@ namespace FitnessForLife.Controllers
             appointment.UserId = User.Identity.GetUserId();
             db.Entry(appointment).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Manage");
+        }
+
+        // GET: Appointments/Manage
+        public ActionResult Manage()
+        {
+            var uId = User.Identity.GetUserId();
+            var appointments = db.Appointments.Where(a => a.UserId == uId).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            return View(appointments.ToList());
+        }
+
+        // GET: Appointments/Cancel/5
+        public ActionResult Cancel(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Appointment appointment = db.Appointments.Find(id);
+            appointment.UserId = User.Identity.GetUserId();
+            if (appointment == null)
+            {
+                return HttpNotFound();
+            }
+            return View(appointment);
+        }
+
+        // POST: Appointments/Cancel/5
+        [HttpPost, ActionName("Cancel")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CancelConfirmed(int id)
+        {
+            Appointment appointment = db.Appointments.Find(id);
+            appointment.UserId = null;
+            db.Entry(appointment).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Manage");
         }
 
         // GET: Appointments/Edit/5

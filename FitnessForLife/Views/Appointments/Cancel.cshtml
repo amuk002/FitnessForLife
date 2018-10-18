@@ -1,13 +1,13 @@
 ﻿@model FitnessForLife.Models.Appointment
 
 @{
-    ViewBag.Title = "Book";
+    ViewBag.Title = "Cancel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="start">Book Appointment</h2>
+<h2 class="start">Cancel Appointment</h2>
 
-<h3>Are you sure you want to book this?</h3>
+<h3>Are you sure you want to cancel this?</h3>
 <div>
     <h4>Appointment</h4>
     <hr />
@@ -59,7 +59,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Book" class="btn btn-default" /> |
+            <input type="submit" value="Cancel" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")
         </div>
     }

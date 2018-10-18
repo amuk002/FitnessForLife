@@ -10,7 +10,9 @@ namespace FitnessForLife.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if(User.Identity.IsAuthenticated && !User.IsInRole("FitnessManager"))
+                return View("IndexUser");
+            return View("Index");
         }
 
         public ActionResult About()

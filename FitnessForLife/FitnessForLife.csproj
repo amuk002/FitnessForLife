@@ -417,7 +417,7 @@
     <Content Include="Views\Appointments\Details.cshtml" />
     <Content Include="Views\Appointments\Edit.cshtml" />
     <Content Include="Views\Appointments\IndexAdmin.cshtml" />
-    <Content Include="Views\Appointments\IndexUser.cshtml" />
+    <Content Include="Views\Appointments\Manage.cshtml" />
     <Content Include="Views\Appointments\Book.cshtml" />
     <Content Include="Views\Branches\Create.cshtml" />
     <Content Include="Views\Branches\Delete.cshtml" />
@@ -425,6 +425,9 @@
     <Content Include="Views\Branches\Edit.cshtml" />
     <Content Include="Views\Branches\IndexUser.cshtml" />
     <Content Include="Views\Branches\IndexAdmin.cshtml" />
+    <Content Include="Views\Home\IndexUser.cshtml" />
+    <Content Include="Views\Appointments\IndexUser.cshtml" />
+    <Content Include="Views\Appointments\Cancel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />

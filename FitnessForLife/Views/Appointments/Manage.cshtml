@@ -1,0 +1,47 @@
+﻿@model IEnumerable<FitnessForLife.Models.Appointment>
+
+@{
+    ViewBag.Title = "Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="start">Your Appointments</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Branch
+        </th>
+        <th>
+            Consultant
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Time
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Branch1.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        <td>
+            @Html.ActionLink("Cancel", "Cancel", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>
