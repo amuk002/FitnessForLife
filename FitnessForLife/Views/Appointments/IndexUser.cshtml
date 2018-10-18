@@ -25,7 +25,6 @@
             <th></th>
         </tr>
     </thead>
-
     <tbody>
         @foreach (var item in Model)
         {
@@ -50,14 +49,11 @@
     </tbody>
 </table>
 
-@section Scripts {
-    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
-    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+@section scripts
+{
     <script>
         $(document).ready(function () {
-            $('.table').DataTable();
-        });
+            $(".table").DataTable();
+        })
     </script>
 }
-<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css"
-      rel="stylesheet" />
