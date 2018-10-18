@@ -111,6 +111,10 @@ namespace FitnessForLife.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            foreach(var row in db.Appointments.Where(a => a.Branch == id).ToList())
+            {
+                db.Appointments.Remove(row);            
+            }
             Branch branch = db.Branches.Find(id);
             db.Branches.Remove(branch);
             db.SaveChanges();
