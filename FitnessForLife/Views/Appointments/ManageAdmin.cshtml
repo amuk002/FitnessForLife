@@ -10,7 +10,8 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-    <table class="table">
+<table class="table">
+    <thead>
         <tr>
             <th>
                 Branch
@@ -29,7 +30,8 @@
             </th>
             <th></th>
         </tr>
-
+    </thead>
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>
@@ -56,4 +58,13 @@
                 </td>
             </tr>
         }
-    </table>
+    </tbody>
+</table>
+@section scripts
+{
+    <script>
+            $(document).ready(function () {
+                $(".table").DataTable();
+            })
+    </script>
+}

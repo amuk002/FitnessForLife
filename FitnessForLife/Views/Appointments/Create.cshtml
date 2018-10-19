@@ -5,13 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class = "start">Create</h2>
+<h2 class="start">Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Appointment</h4>
         <hr />
@@ -63,4 +63,13 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    @if (ViewBag.AlreadyPresentMessage != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.AlreadyPresentMessage");
+            };
+        </script>
+     }
 }

@@ -13,54 +13,62 @@
 <div id="calendar"></div>
 <div style="display: none">
     <table class="table">
-        <tr>
-            <th>
-                Branch
-            </th>
-            <th>
-                Consultant
-            </th>
-            <th>
-                Customer
-            </th>
-            <th>
-                Date
-            </th>
-            <th>
-                Time
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr class="appointments">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Branch1.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
-                </td>
-                <td class="title">
-                    @Html.DisplayFor(modelItem => item.User.First_Name)
-                    @Html.DisplayFor(modelItem => item.User.Last_Name)
-                </td>
-                <td class="start">
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td class="start">
-                    @Html.DisplayFor(modelItem => item.Time)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
+        <thead>
+            <tr>
+                <th>
+                    Branch
+                </th>
+                <th>
+                    Consultant
+                </th>
+                <th>
+                    Customer
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Time
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="appointments">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Branch1.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
+                    </td>
+                    <td class="title">
+                        @Html.DisplayFor(modelItem => item.User.First_Name)
+                        @Html.DisplayFor(modelItem => item.User.Last_Name)
+                    </td>
+                    <td class="start">
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td class="start">
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/fullcalendar")
+    <script>
+        $(document).ready(function () {
+            $(".table").DataTable();
+        })
+    </script>
 }
 

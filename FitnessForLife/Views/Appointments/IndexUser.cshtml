@@ -6,54 +6,55 @@
 }
 
 <h2 class="start">Available Appointments</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Branch
-            </th>
-            <th>
-                Consultant
-            </th>
-            <th>
-                Date
-            </th>
-            <th>
-                Time
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Branch1.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Time)
-                </td>
-                <td>
-                    @Html.ActionLink("Book", "Book", new { id = item.Id })
-                </td>
+                <th>
+                    Branch
+                </th>
+                <th>
+                    Consultant
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Time
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Branch1.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        <button class="btn btn-default">
+                            @Html.ActionLink("Book", "Book", new { id = item.Id }, new {@class = "text-white" })
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-@section scripts
-{
-    <script>
-        $(document).ready(function () {
-            $(".table").DataTable();
-        })
-    </script>
-}
+    @section scripts
+    {
+        <script>
+            $(document).ready(function () {
+                $(".table").DataTable();
+            })
+        </script>
+    }

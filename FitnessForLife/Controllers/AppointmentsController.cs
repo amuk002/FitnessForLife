@@ -65,16 +65,33 @@ namespace FitnessForLife.Controllers
         [Authorize(Roles = "FitnessManager")]
         public ActionResult Create([Bind(Include = "Id,UserId,Date,Time,Branch,Consultant")] Appointment appointment)
         {
-            if (ModelState.IsValid)
+            bool flag = false;
+            foreach (var row in db.Appointments)
             {
+                if (appointment.Date == row.Date && appointment.Time == row.Time
+                    && appointment.Consultant == row.Consultant)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (ModelState.IsValid && !flag)
+            {                
                 appointment.UserId = null;
                 db.Appointments.Add(appointment);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            if (flag)
+            {
+                ViewBag.AlreadyPresentMessage = "Appointment is already present.";
+            }
+
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
+           
             return View(appointment);
         }
 
@@ -172,12 +189,29 @@ namespace FitnessForLife.Controllers
         [Authorize(Roles = "FitnessManager")]
         public ActionResult Edit([Bind(Include = "Id,UserId,Date,Time,Branch,Consultant")] Appointment appointment)
         {
-            if (ModelState.IsValid)
+            bool flag = false;
+            foreach (var row in db.Appointments)
+            {
+                if (appointment.Date == row.Date && appointment.Time == row.Time
+                    && appointment.Consultant == row.Consultant)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (ModelState.IsValid && !flag)
             {
                 db.Entry(appointment).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            if (flag)
+            {
+                ViewBag.AlreadyPresentMessage = "Appointment is already present.";
+            }
+
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);
             return View(appointment);
