@@ -7,9 +7,6 @@
 
 <h2 class="start">Appointments</h2>
 
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
 <div id="calendar"></div>
 <div style="display: none">
     <table class="table">
@@ -40,10 +37,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Branch1.Description)
                     </td>
-                    <td>
+                    <td class="title">
                         @Html.DisplayFor(modelItem => item.Consultant1.Full_Name)
                     </td>
-                    <td class="title">
+                    <td>
                         @Html.DisplayFor(modelItem => item.User.First_Name)
                         @Html.DisplayFor(modelItem => item.User.Last_Name)
                     </td>

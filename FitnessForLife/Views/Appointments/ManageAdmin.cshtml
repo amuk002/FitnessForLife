@@ -12,7 +12,7 @@
     </p>*@
 <table class="table">
     <thead>
-        <tr>
+        <tr class="table-primary">
             <th>
                 Branch
             </th>
@@ -34,7 +34,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="table-light">
                 <td>
                     @Html.DisplayFor(modelItem => item.Branch1.Description)
                 </td>

@@ -22,9 +22,9 @@ namespace FitnessForLife.Controllers
             var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
             var appointmentsUser = db.Appointments.Where(a => a.UserId == null).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
             if (User.IsInRole("FitnessManager"))
-                return View("IndexAdmin", appointmentsAdmin.ToList());
+                return View("IndexAdmin", appointmentsAdmin);
 
-            return View("IndexUser", appointmentsUser.ToList());
+            return View("IndexUser", appointmentsUser);
         }
 
         // GET: Appointments/Details/5
@@ -50,7 +50,7 @@ namespace FitnessForLife.Controllers
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Description");
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name");
             if (null == date)
-                return RedirectToAction("IndexAdmin");
+                return RedirectToAction("Index");
             Appointment a = new Appointment();
             DateTime convertedDate = DateTime.Parse(date);
             a.Date = convertedDate;
@@ -87,6 +87,7 @@ namespace FitnessForLife.Controllers
             if (flag)
             {
                 ViewBag.AlreadyPresentMessage = "Appointment is already present.";
+                return RedirectToAction("Create");
             }
 
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
@@ -103,7 +104,22 @@ namespace FitnessForLife.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Appointment appointment = db.Appointments.Find(id);
-            appointment.UserId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
+            var userAppointments = db.Appointments.Where(a => a.UserId == userId).ToList();
+            bool flag = false;
+            foreach (var row in userAppointments)
+            {
+                if (row.Date == appointment.Date)
+                {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                ViewBag.BookingMessage = "Cannot book this slot. You already have an appointment at this time. Cancel the old one to book this one.";
+                return RedirectToAction("Index");
+            }
             if (appointment == null)
             {
                 return HttpNotFound();

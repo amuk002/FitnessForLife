@@ -15,19 +15,20 @@
 <br />
 <table class="table">
     <thead>
-        <tr>
+        <tr class="table-primary">
             <th>
                 Suburb
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="location">
+            <tr class="location table-light">
                 <td class="description">
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
