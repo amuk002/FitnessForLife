@@ -54,7 +54,11 @@
     {
     <script>
         $(document).ready(function () {
-            $(".table").DataTable();
+            $(".table").DataTable({
+                "language": {
+                    "emptyTable": "No appointments available."
+                }
+            });
         })
     </script>
 }

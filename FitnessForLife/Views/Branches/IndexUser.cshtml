@@ -40,7 +40,11 @@
     @Scripts.Render("~/bundles/mapbox")
     <script>
         $(document).ready(function () {
-            $(".table").DataTable();
+            $(".table").DataTable({
+                "language": {
+                    "emptyTable": "No branches available."
+                }
+            });
         })
     </script>
 }

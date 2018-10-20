@@ -64,7 +64,11 @@
     @Scripts.Render("~/bundles/fullcalendar")
     <script>
         $(document).ready(function () {
-            $(".table").DataTable();
+            $(".table").DataTable({
+                "language": {
+                    "emptyTable": "No appointments created."
+                }
+            });
         })
     </script>
 }

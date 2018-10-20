@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FitnessForLife.Models;
 using Microsoft.AspNet.Identity;
+using FitnessForLife.Utils;
 
 namespace FitnessForLife.Controllers
 {
@@ -47,10 +48,29 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address")] User user)
+        public ActionResult Create([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address,PhoneNumber")] User user)
         {
             if (ModelState.IsValid)
             {
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        string toEmail = User.Identity.GetUserName();
+                        string subject = "Welcome to Fitness For Life";
+                        string contents = "You have successfully registered with fitness for life. " +
+                                          "Now you can access our facilities by booking appointment with our fitness consultant" +
+                                          "<br><br>Let's begin our journey to fitness!!!";
+
+                        EmailSender es = new EmailSender();
+                        es.Send(toEmail, subject, contents);
+                        ModelState.Clear();
+                    }
+                    catch
+                    {
+                        return View();
+                    }
+                }
                 user.Id = User.Identity.GetUserId();
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -80,7 +100,7 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address")] User user)
+        public ActionResult Edit([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address,PhoneNumber")] User user)
         {
             if (ModelState.IsValid)
             {
