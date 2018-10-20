@@ -11,12 +11,16 @@ $(".appointments").each(function () {
 });
 
 $(document).ready(function () {
+    nowDate = moment();
     $("#calendar").fullCalendar({
         locale: 'au',
         events: appointments,
         eventColor: '#78C2AD',
         eventTextColor: '#fff',
         eventLimit: true,
+        validRange: {
+                start: nowDate            
+        },
         dayClick: function (date, allDay, jsEvent, view) {
             var d = new Date(date);
             var m = moment(d).format("YYYY-MM-DD");
