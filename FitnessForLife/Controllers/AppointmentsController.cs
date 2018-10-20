@@ -19,8 +19,9 @@ namespace FitnessForLife.Controllers
         // GET: Appointments
         public ActionResult Index()
         {
+            DateTime date = DateTime.Now;
             var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
-            var appointmentsUser = db.Appointments.Where(a => a.UserId == null).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            var appointmentsUser = db.Appointments.Where(a => a.UserId == null && a.Date >= date).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
             if (User.IsInRole("FitnessManager"))
                 return View("IndexAdmin", appointmentsAdmin);
 
@@ -141,8 +142,9 @@ namespace FitnessForLife.Controllers
         public ActionResult Manage()
         {
             var uId = User.Identity.GetUserId();
-            var appointmentsUser = db.Appointments.Where(a => a.UserId == uId).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
-            var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            DateTime date = DateTime.Now;
+            var appointmentsUser = db.Appointments.Where(a => a.UserId == uId && a.Date >= date).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            var appointmentsAdmin = db.Appointments.Where(a => a.Date >= date).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
             if (User.IsInRole("FitnessManager"))
                 return View("ManageAdmin", appointmentsAdmin.ToList());
             return View("ManageUser", appointmentsUser.ToList());
