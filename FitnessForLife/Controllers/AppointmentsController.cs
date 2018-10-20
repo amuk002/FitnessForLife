@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FitnessForLife.Models;
 using Microsoft.AspNet.Identity;
+using FitnessForLife.Utils;
 
 namespace FitnessForLife.Controllers
 {
@@ -150,6 +151,29 @@ namespace FitnessForLife.Controllers
             appointment.UserId = User.Identity.GetUserId();
             db.Entry(appointment).State = EntityState.Modified;
             db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    DateTime date = appointment.Date ?? DateTime.Now;                   
+                    string toEmail = User.Identity.GetUserName();
+                    string subject = "Appointment Confirmed";
+                    string contents = "Your appointment is confirmed. Below are the details of your appointment.<br><br>"
+                                        + "Name - "+ appointment.User.First_Name + " " + appointment.User.Last_Name + "<br>"
+                                        + "Date - " + date.ToString("dd MMM yyyy") + "<br>" + "Time - " + appointment.Time.ToString() + "<br>"
+                                        + "Branch - " + appointment.Branch1.Address + "<br>" + "Consultant - " + appointment.Consultant1.Full_Name;
+
+                    EmailSender es = new EmailSender();
+                    es.Send(toEmail, subject, contents);
+                    ModelState.Clear();
+
+                    return RedirectToAction("Manage");
+                }
+                catch
+                {
+                    return RedirectToAction("Manage");
+                }
+            }
             return RedirectToAction("Manage");
         }
 
@@ -194,9 +218,30 @@ namespace FitnessForLife.Controllers
         public ActionResult CancelConfirmed(int id)
         {
             Appointment appointment = db.Appointments.Find(id);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    DateTime date = appointment.Date ?? DateTime.Now;
+                    string toEmail = User.Identity.GetUserName();
+                    string subject = "Appointment Cancelled";
+                    string contents = "Your appointment is cancelled. Below are the details of your appointment.<br><br>"
+                                        + "Name - " + appointment.User.First_Name + " " + appointment.User.Last_Name + "<br>"
+                                        + "Date - " + date.ToString("dd MMM yyyy") + "<br>" + "Time - " + appointment.Time.ToString() + "<br>"
+                                        + "Branch - " + appointment.Branch1.Address + "<br>" + "Consultant - " + appointment.Consultant1.Full_Name;
+
+                    EmailSender es = new EmailSender();
+                    es.Send(toEmail, subject, contents);
+                    ModelState.Clear();
+                }
+                catch
+                {
+                    return View();
+                }
+            }
             appointment.UserId = null;
             db.Entry(appointment).State = EntityState.Modified;
-            db.SaveChanges();
+            db.SaveChanges();           
             return RedirectToAction("Manage");
         }
 
