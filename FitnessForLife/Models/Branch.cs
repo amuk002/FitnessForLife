@@ -12,7 +12,6 @@ namespace FitnessForLife.Models
         public Branch()
         {
             Appointments = new HashSet<Appointment>();
-            Consultants = new HashSet<Consultant>();
         }
 
         public int Id { get; set; }
@@ -25,8 +24,5 @@ namespace FitnessForLife.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Consultant> Consultants { get; set; }
     }
 }

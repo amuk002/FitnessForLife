@@ -227,6 +227,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
+    <Compile Include="Controllers\ConsultantsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -685,6 +686,11 @@
     <Content Include="Views\Home\IndexAdmin.cshtml" />
     <Content Include="Views\Appointments\ManageAdmin.cshtml" />
     <Content Include="Views\Appointments\NoBook.cshtml" />
+    <Content Include="Views\Consultants\Create.cshtml" />
+    <Content Include="Views\Consultants\Delete.cshtml" />
+    <Content Include="Views\Consultants\Details.cshtml" />
+    <Content Include="Views\Consultants\Edit.cshtml" />
+    <Content Include="Views\Consultants\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />

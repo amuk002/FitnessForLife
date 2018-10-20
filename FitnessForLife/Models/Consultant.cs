@@ -16,15 +16,30 @@ namespace FitnessForLife.Models
 
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Consultant Name is required")]
         [Column("Full Name")]
         [StringLength(150)]
         public string Full_Name { get; set; }
 
-        public int? Branch { get; set; }
+        [Column("Date of birth", TypeName = "date")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage = "Date of birth is required")]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? Date_of_birth { get; set; }
+
+        [Required]
+        public string Address { get; set; }
+
+        [Required(ErrorMessage = "Phone Number is required")]
+        [DataType(DataType.PhoneNumber)]
+        public int PhoneNumber { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [DataType(DataType.EmailAddress)]
+        public string Email{ get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Appointment> Appointments { get; set; }
 
-        public virtual Branch Branch1 { get; set; }
     }
 }
