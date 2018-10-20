@@ -1,16 +1,18 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "btn-primary-text-color" }))
-    {
-    @Html.AntiForgeryToken()
+@model FitnessForLife.Models.User
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" , @class = "btn-primary-text-color" })
-        </li>
-        <li><a class="btn-primary-text-color" href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
-    </ul>
+@if (Request.IsAuthenticated && !User.IsInRole("FitnessManager"))
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "btn-primary-text-color"}))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "btn-primary-text-color" })
+            </li>
+            <li><a class="btn-primary-text-color" href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+        </ul>
     }
 }
 else

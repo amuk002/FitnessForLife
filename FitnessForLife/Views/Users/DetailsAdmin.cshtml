@@ -5,30 +5,30 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2 class="start">Details</h2>
 
 <div>
-    <h4>User</h4>
+    <h4>Customer</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dd>
+              <div class="profile-header-container">   
+                  <div class="profile-header-img">
+                      <img class="img-circle" src='@Url.Content("~/Uploads/" + Model.Path)' />
+                  </div>
+              </div>
+        </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.First_Name)
+            Customer Name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.First_Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Last_Name)
-        </dt>
-
-        <dd>
             @Html.DisplayFor(model => model.Last_Name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date_of_birth)
+            Date of Birth
         </dt>
 
         <dd>
@@ -44,7 +44,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
+            Phone Number
         </dt>
 
         <dd>
@@ -54,6 +54,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

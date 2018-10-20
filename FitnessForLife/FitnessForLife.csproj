@@ -628,6 +628,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Uploads\defaultpic.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -664,7 +665,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\DetailsAdmin.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Appointments\Create.cshtml" />
@@ -691,6 +692,7 @@
     <Content Include="Views\Consultants\Details.cshtml" />
     <Content Include="Views\Consultants\Edit.cshtml" />
     <Content Include="Views\Consultants\Index.cshtml" />
+    <Content Include="Views\Users\DetailsUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />

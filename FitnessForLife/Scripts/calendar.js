@@ -2,7 +2,6 @@
 $(".appointments").each(function () {
     var title = $(".title", this).text().trim();
     var start = $(".start", this).text().trim();
-    var time = $(".time", this).text().trim();
     var appointment = {
         "title": title,
         "start": start

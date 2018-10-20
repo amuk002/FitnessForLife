@@ -1,0 +1,59 @@
+﻿@model FitnessForLife.Models.User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="start">Details</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dd>
+            <div class="profile-header-container">
+                <div class="profile-header-img">
+                    <img class="img-circle" src='@Url.Content("~/Uploads/" + Model.Path)' />
+                </div>
+            </div>
+        </dd>
+        <dt>
+            Customer Name
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.First_Name)
+            @Html.DisplayFor(model => model.Last_Name)
+        </dd>
+
+        <dt>
+            Date of Birth
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date_of_birth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            Phone Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    @Html.ActionLink("Back to Home Page", "Index", "Home")
+</div>

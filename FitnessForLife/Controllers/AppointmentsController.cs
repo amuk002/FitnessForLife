@@ -272,28 +272,28 @@ namespace FitnessForLife.Controllers
         [Authorize(Roles = "FitnessManager")]
         public ActionResult Edit([Bind(Include = "Id,UserId,Date,Time,Branch,Consultant")] Appointment appointment)
         {
-            bool flag = false;
-            foreach (var row in db.Appointments)
-            {
-                if (appointment.Date == row.Date && appointment.Time == row.Time
-                    && appointment.Consultant == row.Consultant)
-                {
-                    flag = true;
-                    break;
-                }
-            }
+            //bool flag = false;
+            //foreach (var row in db.Appointments.ToList())
+            //{
+            //    if (appointment.Date == row.Date && appointment.Time == row.Time
+            //        && appointment.Consultant == row.Consultant && appointment.Id != row.Id)
+            //    {
+            //        flag = true;
+            //        break;
+            //    }
+            //}
 
-            if (ModelState.IsValid && !flag)
+            if (ModelState.IsValid)
             {
                 db.Entry(appointment).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Manage");
             }
 
-            if (flag)
-            {
-                ViewBag.AlreadyPresentMessage = "Appointment is already present.";
-            }
+            //if (flag)
+            //{
+            //    ViewBag.AlreadyPresentMessage = "Appointment is already present.";
+            //}
 
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
             ViewBag.Consultant = new SelectList(db.Consultants, "Id", "Full_Name", appointment.Consultant);

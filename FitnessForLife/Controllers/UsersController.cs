@@ -9,9 +9,11 @@ using System.Web.Mvc;
 using FitnessForLife.Models;
 using Microsoft.AspNet.Identity;
 using FitnessForLife.Utils;
+using System.IO;
 
 namespace FitnessForLife.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private FitnessForLifeModel db = new FitnessForLifeModel();
@@ -30,11 +32,19 @@ namespace FitnessForLife.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             User user = db.Users.Find(id);
+            if (user.Path == null)
+            {
+                user.Path = "defaultpic.jpg";
+            }
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+            if (User.IsInRole("FitnessManager"))
+            {
+                return View("DetailsAdmin", user);
+            }
+            return View("DetailsUser", user);
         }
 
         // GET: Users/Create
@@ -48,29 +58,38 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address,PhoneNumber")] User user)
+        public ActionResult Create([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address,PhoneNumber,Path")] User user, HttpPostedFileBase postedFile)
         {
+            ModelState.Clear();
+            var myUniqueFileName = string.Format(@"{0}", Guid.NewGuid());
+            user.Path = myUniqueFileName;
+            TryValidateModel(user);
+
             if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                try
                 {
-                    try
-                    {
-                        string toEmail = User.Identity.GetUserName();
-                        string subject = "Welcome to Fitness For Life";
-                        string contents = "You have successfully registered with fitness for life. " +
-                                          "Now you can access our facilities by booking appointment with our fitness consultant" +
-                                          "<br><br>Let's begin our journey to fitness!!!";
+                    string toEmail = User.Identity.GetUserName();
+                    string subject = "Welcome to Fitness For Life";
+                    string contents = "You have successfully registered with fitness for life. " +
+                                        "Now you can access our facilities by booking appointment with our fitness consultant" +
+                                        "<br><br>Let's begin our journey to fitness!!!";
 
-                        EmailSender es = new EmailSender();
-                        es.Send(toEmail, subject, contents);
-                        ModelState.Clear();
-                    }
-                    catch
-                    {
-                        return View();
-                    }
+                    EmailSender es = new EmailSender();
+                    es.Send(toEmail, subject, contents);
+                    ModelState.Clear();
                 }
+                catch
+                {
+                    return View();
+                }
+
+                string serverPath = Server.MapPath("~/Uploads/");
+                string fileExtension = Path.GetExtension(postedFile.FileName);
+                string filePath = user.Path + fileExtension;
+                user.Path = filePath;
+                postedFile.SaveAs(serverPath + user.Path);
+
                 user.Id = User.Identity.GetUserId();
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -100,13 +119,13 @@ namespace FitnessForLife.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address,PhoneNumber")] User user)
+        public ActionResult Edit([Bind(Include = "Id,First_Name,Last_Name,Date_of_birth,Address,PhoneNumber,Path")] User user)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
             return View(user);
         }

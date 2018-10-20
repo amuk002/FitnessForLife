@@ -27,3 +27,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.profile-header-container {
+    margin: 0 auto;
+}
+
+.profile-header-img {
+ 
+}
+
+.profile-header-img > img.img-circle {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #51D2B7;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
