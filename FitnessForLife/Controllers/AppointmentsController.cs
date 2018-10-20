@@ -20,10 +20,25 @@ namespace FitnessForLife.Controllers
         public ActionResult Index()
         {
             DateTime date = DateTime.Now;
-            var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
-            var appointmentsUser = db.Appointments.Where(a => a.UserId == null && a.Date >= date).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User).ToList();
+            var appointmentsUser = db.Appointments.Where(a => a.UserId == null).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User).ToList();
+
+            foreach (var row in appointmentsAdmin.ToList())
+            {
+                DateTime d = row.Date ?? DateTime.Now;
+                if (DateTime.Compare(d, date) < 0)
+                    appointmentsAdmin.Remove(row);
+            }
+
             if (User.IsInRole("FitnessManager"))
                 return View("IndexAdmin", appointmentsAdmin);
+
+            foreach (var row in appointmentsUser.ToList())
+            {
+                DateTime d = row.Date ?? DateTime.Now;
+                if (DateTime.Compare(d, date) < 0)
+                    appointmentsUser.Remove(row);
+            }
 
             return View("IndexUser", appointmentsUser);
         }
@@ -143,11 +158,18 @@ namespace FitnessForLife.Controllers
         {
             var uId = User.Identity.GetUserId();
             DateTime date = DateTime.Now;
-            var appointmentsUser = db.Appointments.Where(a => a.UserId == uId && a.Date >= date).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
-            var appointmentsAdmin = db.Appointments.Where(a => a.Date >= date).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+            var appointmentsUser = db.Appointments.Where(a => a.UserId == uId).Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User).ToList();
+            var appointmentsAdmin = db.Appointments.Include(a => a.Branch1).Include(a => a.Consultant1).Include(a => a.User);
+
+            foreach(var row in appointmentsUser.ToList())
+            {
+                DateTime d = row.Date ?? DateTime.Now;
+                if (DateTime.Compare(d, date) < 0)
+                    appointmentsUser.Remove(row);
+            }
             if (User.IsInRole("FitnessManager"))
                 return View("ManageAdmin", appointmentsAdmin.ToList());
-            return View("ManageUser", appointmentsUser.ToList());
+            return View("ManageUser", appointmentsUser);
         }
 
         // GET: Appointments/Cancel/5
