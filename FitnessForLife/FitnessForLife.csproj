@@ -667,6 +667,7 @@
     <Content Include="Views\Appointments\Cancel.cshtml" />
     <Content Include="Views\Home\IndexAdmin.cshtml" />
     <Content Include="Views\Appointments\ManageAdmin.cshtml" />
+    <Content Include="Views\Appointments\NoBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Modules\" />

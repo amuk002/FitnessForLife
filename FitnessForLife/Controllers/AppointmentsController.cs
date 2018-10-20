@@ -87,7 +87,6 @@ namespace FitnessForLife.Controllers
             if (flag)
             {
                 ViewBag.AlreadyPresentMessage = "Appointment is already present.";
-                return RedirectToAction("Create");
             }
 
             ViewBag.Branch = new SelectList(db.Branches, "Id", "Description", appointment.Branch);
@@ -115,16 +114,15 @@ namespace FitnessForLife.Controllers
                     break;
                 }
             }
-            if (flag)
-            {
-                ViewBag.BookingMessage = "Cannot book this slot. You already have an appointment at this time. Cancel the old one to book this one.";
-                return RedirectToAction("Index");
-            }
             if (appointment == null)
             {
                 return HttpNotFound();
             }
-            return View(appointment);
+            if (flag)
+            {
+                return View("NoBook", appointment);
+            }
+            return View("Book", appointment);
         }
 
         // POST: Appointments/Book/5

@@ -57,12 +57,4 @@
             $(".table").DataTable();
         })
     </script>
-    @if (ViewBag.BookingMessage != null)
-    {
-        <script type="text/javascript">
-            window.onload = function () {
-                alert("@ViewBag.BookingMessage");
-            };
-        </script>
-    }
 }

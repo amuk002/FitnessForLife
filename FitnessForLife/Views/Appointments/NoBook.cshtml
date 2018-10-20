@@ -1,0 +1,56 @@
+﻿@model FitnessForLife.Models.Appointment
+
+@{
+    ViewBag.Title = "Book";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="start">Book Appointment</h2>
+
+<h3>Cannot book this slot. You already have an appointment at this time. Cancel the old one to book this one.</h3>
+<div>
+    <h4>Appointment Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Branch
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch1.Description)
+        </dd>
+
+        <dt>
+            Consultant
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Consultant1.Full_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
