@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
-@model FitnessForLife.Models.User
 
-@if (Request.IsAuthenticated && !User.IsInRole("FitnessManager"))
+@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "btn-primary-text-color"}))
     {

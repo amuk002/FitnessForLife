@@ -27,7 +27,8 @@ namespace FitnessForLife
                       "~/Content/bootstrap-mytheme.css",
                       "~/Content/site.css",
                       "~/Content/fullcalendar.min.css",
-                      "~/Content/DataTables/css/dataTables.bootstrap4.css"));
+                      "~/Content/DataTables/css/dataTables.bootstrap4.css" +
+                      "~/Contents/bootstrap-datepicker.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/fullcalendar").Include(
                      "~/Scripts/lib/jquery.min.js",
